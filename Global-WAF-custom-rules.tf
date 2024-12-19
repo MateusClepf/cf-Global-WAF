@@ -31,7 +31,7 @@ locals {
         products   = ["zoneLockdown","bic","uaBlock","hot","securityLevel","rateLimit","waf"]
       }
       logging  = {
-        enabled = false
+        enabled = true
       }
     }
   ]
