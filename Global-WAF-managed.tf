@@ -1,4 +1,9 @@
 # As managed rulesets already exist you only need to reference their IDs
+data "cloudflare_rulesets" "example_rulesets" {
+  for_each    = local.accounts
+  account_id = each.value.account_id
+}
+
 #Create the ruleset entrypoint for each account
 resource "cloudflare_ruleset" "Global-WAF-Custom-phase-entrypoint-managed" {
   for_each    = local.accounts
