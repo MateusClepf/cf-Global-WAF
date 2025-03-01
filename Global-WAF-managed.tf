@@ -1,9 +1,3 @@
-# As managed rulesets already exist you only need to reference their IDs
-data "cloudflare_rulesets" "example_rulesets" {
-  for_each    = local.accounts
-  account_id = each.value.account_id
-}
-
 #Create the ruleset entrypoint for each account
 resource "cloudflare_ruleset" "Global-WAF-Custom-phase-entrypoint-managed" {
   for_each    = local.accounts
@@ -28,14 +22,13 @@ resource "cloudflare_ruleset" "Global-WAF-Custom-phase-entrypoint-managed" {
   rules {
     action = "execute"
     action_parameters {
-      id = "efb7b8c949ac4650a09736fc376e9aee" #Cloudflare Managed Ruleset ID
-      overrides {
+      id = "efb7b8c949ac4650a09736fc376e9aee" #Cloudflare Managed Ruleset ID - this ID is fixed
+      overrides { #override by tag example
         categories {
           category = "wordpress"
           action   = "block"
           enabled   = "true"
         }
-
         categories {
           category = "joomla"
           action   = "block"
@@ -51,7 +44,7 @@ resource "cloudflare_ruleset" "Global-WAF-Custom-phase-entrypoint-managed" {
   rules {
     action = "execute"
     action_parameters {
-      id = "4814384a9e5d4991b9815dcfc25d2f1f" #Cloudflare OWASP Core Ruleset ID
+      id = "4814384a9e5d4991b9815dcfc25d2f1f" #Cloudflare OWASP Core Ruleset ID  - this ID is fixed
       #Paranoia level is set by disabling the upper level, example below sets paranoia level to 2
       /*overrides {
         categories {
