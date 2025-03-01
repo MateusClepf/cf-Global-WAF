@@ -5,7 +5,7 @@ locals {
   rulesets_per_account = {
     for account, config in local.accounts : account => merge(
       {
-        rules = concat( config.override_rules,local.baseline_ruleset)
+        rules = concat( config.override_rules,local.baseline_ruleset_custom)
       }
     )
   }

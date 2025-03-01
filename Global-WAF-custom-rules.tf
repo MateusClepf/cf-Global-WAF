@@ -1,6 +1,6 @@
 # Baseline ruleset applied to all accounts
 locals {
-  baseline_ruleset = [
+  baseline_ruleset_custom = [
    {
       action      = "block"
       expression  = "(http.request.uri.path ~ \"^/wp-admin\" and ip.src ne 192.0.2.1)"
